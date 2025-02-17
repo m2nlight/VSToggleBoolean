@@ -52,10 +52,16 @@
               <CommandFlag>DefaultInvisible</CommandFlag>
               <CommandFlag>DynamicVisibility</CommandFlag>
           If you do not want an image next to your command, remove the Icon node /> -->
-      <Button guid="guidToggleBooleanPackageCmdSet" id="ToggleBooleanCommandId" priority="0x0100" type="Button">
+      <Button guid="guidToggleBooleanPackageCmdSet" id="SwitchCommandId" priority="0x0100" type="Button">
         <Parent guid="guidToggleBooleanPackageCmdSet" id="MyMenuGroup" />
         <Strings>
-          <ButtonText>Toggle Boolean</ButtonText>
+          <ButtonText>Switch</ButtonText>
+        </Strings>
+      </Button>
+      <Button guid="guidToggleBooleanPackageCmdSet" id="SwitchReverseCommandId" priority="0x0101" type="Button">
+        <Parent guid="guidToggleBooleanPackageCmdSet" id="MyMenuGroup" />
+        <Strings>
+          <ButtonText>Switch Reverse</ButtonText>
         </Strings>
       </Button>
     </Buttons>
@@ -69,7 +75,8 @@
     <!-- This is the guid used to group the menu commands together -->
     <GuidSymbol name="guidToggleBooleanPackageCmdSet" value="{1809e4b7-8455-46dd-8743-03e071875aa9}">
       <IDSymbol name="MyMenuGroup" value="0x1020" />
-      <IDSymbol name="ToggleBooleanCommandId" value="0x0100" />
+      <IDSymbol name="SwitchCommandId" value="0x0100" />
+      <IDSymbol name="SwitchReverseCommandId" value="0x0101" />
     </GuidSymbol>
   </Symbols>
 </CommandTable>
