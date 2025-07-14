@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PackageManifest Version="2.0.0" xmlns="http://schemas.microsoft.com/developer/vsx-schema/2011" xmlns:d="http://schemas.microsoft.com/developer/vsx-schema-design/2011">
   <Metadata>
-    <Identity Id="ToggleBoolean.beff0279-4037-4647-a392-94db0944f170" Version="1.1.1" Language="en-US" Publisher="m2nlight" />
+    <Identity Id="ToggleBoolean.beff0279-4037-4647-a392-94db0944f170" Version="1.1.2" Language="en-US" Publisher="m2nlight" />
     <DisplayName>ToggleBoolean(Switch)</DisplayName>
     <Description>Toggle boolean like vim-switch</Description>
   </Metadata>

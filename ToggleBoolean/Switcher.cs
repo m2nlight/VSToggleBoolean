@@ -9,12 +9,13 @@ namespace ToggleBoolean
         private static string[][] Items = new string[][]
         {
             new string[] { "true", "false" },
-            new string[] { "private", "internal", "protected", "public" },
-            new string[] { "class", "struct", "enum", "record" },
             new string[] { "on", "off" },
             new string[] { "yes", "no" },
             new string[] { "0", "1" },
             new string[] { "&&", "||" },
+            new string[] { "private", "public" },
+            new string[] { "internal", "public" },
+            new string[] { "class", "struct", "enum", "record" },
         };
 
         public static string Switch(string input, bool reverse)

@@ -7,8 +7,6 @@ namespace ToggleBoolean
 {
     internal class SwitchCommandBase
     {
-        private bool _reverse;
-
         /// <summary>
         /// Command menu group (command set GUID).
         /// </summary>
@@ -17,27 +15,27 @@ namespace ToggleBoolean
         /// <summary>
         /// VS Package that provides this command, not null.
         /// </summary>
-        private readonly AsyncPackage package;
+        private readonly AsyncPackage _package;
+
+        private readonly bool _reverse;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="SwitchCommand"/> class.
+        /// Initializes a new instance of the <see cref="SwitchCommand" /> class.
         /// Adds our command handlers for menu (commands must exist in the command table file)
         /// </summary>
-        /// <param name="package">Owner package, not null.</param>
-        /// <param name="commandService">Command service to add command to, not null.</param>
-        internal protected SwitchCommandBase(
+        protected internal SwitchCommandBase(
             AsyncPackage package,
             OleMenuCommandService commandService,
             int commandId,
             bool reverse
         )
         {
-            this.package = package ?? throw new ArgumentNullException(nameof(package));
+            _package = package ?? throw new ArgumentNullException(nameof(package));
             commandService =
                 commandService ?? throw new ArgumentNullException(nameof(commandService));
 
-            var menuCommandID = new CommandID(CommandSet, commandId);
-            var menuItem = new MenuCommand(this.Execute, menuCommandID);
+            var menuCommandId = new CommandID(CommandSet, commandId);
+            var menuItem = new MenuCommand(Execute, menuCommandId);
             commandService.AddCommand(menuItem);
 
             _reverse = reverse;
@@ -46,10 +44,7 @@ namespace ToggleBoolean
         /// <summary>
         /// Gets the service provider from the owner package.
         /// </summary>
-        private Microsoft.VisualStudio.Shell.IAsyncServiceProvider ServiceProvider
-        {
-            get { return this.package; }
-        }
+        private IAsyncServiceProvider ServiceProvider => _package;
 
         /// <summary>
         /// This function is the callback used to execute the command when the menu item is clicked.
@@ -73,16 +68,14 @@ namespace ToggleBoolean
             //     OLEMSGBUTTON.OLEMSGBUTTON_OK,
             //     OLEMSGDEFBUTTON.OLEMSGDEFBUTTON_FIRST);
 
-            await ThreadHelper.JoinableTaskFactory.SwitchToMainThreadAsync(package.DisposalToken);
+            await ThreadHelper.JoinableTaskFactory.SwitchToMainThreadAsync(_package.DisposalToken);
 
-            var dte = await ServiceProvider.GetServiceAsync(typeof(DTE)) as DTE;
-            if (dte == null)
+            if (!(await ServiceProvider.GetServiceAsync(typeof(DTE)) is DTE dte))
             {
                 return;
             }
 
-            var textSelection = dte.ActiveDocument.Selection as TextSelection;
-            if (textSelection == null)
+            if (!(dte.ActiveDocument.Selection is TextSelection textSelection))
             {
                 return;
             }
@@ -91,7 +84,7 @@ namespace ToggleBoolean
             var end = textSelection.AnchorPoint.CreateEditPoint();
 
             var text = textSelection.Text.Trim();
-            var replaceText = (string)null;
+            string replaceText = null;
 
             if (!string.IsNullOrEmpty(text))
             {

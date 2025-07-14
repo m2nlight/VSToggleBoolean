@@ -9,11 +9,13 @@
 
 ```
 true -> false
-yes -> no
 on -> off
+yes -> no
 0 -> 1
 && -> ||
-publish -> internal -> private
+private -> public
+internal -> public
+class -> struct -> enum -> record
 ```
 
 ## Keybinding
@@ -26,11 +28,16 @@ You can set the shortcuts:
 If VsVim, add follow to `.vsvimrc`
 
 ```
-noremap <Space>i :vsc Tools.Switch<CR>
-noremap <Space>I :vsc Tools.SwitchReverse<CR>
+noremap <Space>y :vsc Tools.Switch<CR>
+noremap <Space>Y :vsc Tools.SwitchReverse<CR>
 ```
 
 ## Build
+
+```ps1
+# PowerShell
+.\build.ps1
+```
 
 Build `Release` then get `ToggleBoolean\bin\Release\ToggleBoolean.vsix`
 
